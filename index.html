@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>AI Smart Reply Demo</title>
+</head>
+
+<body>
+
+    <h2>AI Smart Reply Demo</h2>
+
+    <input id="input" placeholder="Enter your message..." style="width:300px;">
+    <button onclick="sendMessage()">Generate Reply</button>
+
+    <p id="output"></p>
+
+    <script>
+        async function sendMessage() {
+            const message = document.getElementById("input").value;
+
+            const res = await fetch("http://localhost:3000/chat", {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ message })
+            });
+
+            const data = await res.json();
+            document.getElementById("output").innerText = data.reply;
+        }
+    </script>
+
+</body>
+
+</html>
